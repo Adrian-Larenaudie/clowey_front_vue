@@ -1,12 +1,37 @@
-<template>  
-    <Navigation />
+<template>
+
+    <Navigation v-if="currentRouteName != 'backoffice' " />
+    <BackofficeNavigation v-if="currentRouteName === 'backoffice' " />
+
     <h1>Hello world</h1>
     <router-view />
 </template>
 
-<script setup>
+<script>
+
     import {  RouterView } from 'vue-router';
-    import Navigation from './components/Navigation.vue';
+    import Navigation from './components/blocks/Navigation.vue';
+    import BackofficeNavigation from './components/blocks/BackofficeNavigation.vue';
+
+    export default {
+        name: 'App',
+        components: {
+            Navigation,
+            BackofficeNavigation,
+        },
+        computed: {
+            currentRouteName() {
+                console.log(this.$route.name);
+                return this.$route.name;
+            }
+        },
+        watch:{
+            $route() {
+            window.scroll(0, 0);
+            },
+        },
+
+    };
 </script>
 
 <style>

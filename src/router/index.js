@@ -18,6 +18,11 @@ const router = createRouter({
       name: 'faq',
       component: () => import('../views/FaqView.vue'),
     },
+    {
+      path: '/backoffice',
+      name: 'backoffice',
+      component: () => import('../views/BackofficeView.vue'),
+    },
   ]
 })
 

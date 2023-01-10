@@ -1,10 +1,9 @@
 import axios from 'axios';
-import { compileTemplate } from 'vue/compiler-sfc';
 
 export default {
     namespaced: true,
     state: () => ({
-  
+        works: ['toto'],
     }), 
     
     getters: {

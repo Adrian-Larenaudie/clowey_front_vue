@@ -9,6 +9,7 @@
     import { mapGetters, mapActions } from "vuex";
 
     export default {
+        name: 'OngletPortfolio',
         computed: {
             ...mapGetters('works', ['getAllWorks']),
             ...mapGetters('categories', ['getAllCategories']),

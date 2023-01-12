@@ -1,7 +1,7 @@
 <template>
     <div class="public">
+        <h1 class="title">Public layout</h1>
         <PublicNav/>
-        Public layout
         <RouterView/>
     </div>
 </template>
@@ -18,6 +18,9 @@
 </script>
 
 <style>
+    .title {
+        font-size: 2rem;
+    }
     .public {
         border: solid 1px red;
     }

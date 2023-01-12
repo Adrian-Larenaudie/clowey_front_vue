@@ -24,7 +24,7 @@ const router = createRouter({
       name: 'admin',
       component: Admin.Layout,
       children: [
-        { path: 'work', name: 'workIndex', component: Admin.Work },
+        { path: 'work', name: 'work', component: Admin.Work },
       ]
     },
   

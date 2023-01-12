@@ -6,6 +6,7 @@
 
     export default {
         name: 'AdminHeader',
+        props: ['title']
     }
 </script>
 

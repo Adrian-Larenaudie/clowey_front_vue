@@ -1,12 +1,9 @@
-import { createStore } from 'vuex';
 import axios from 'axios';
 
-const socialNetworks = createStore({
-    state() {
-        return {
-            
-        }
-    }, 
+export default {
+    state:() => ({
+        
+    }), 
     
     getters: {
 
@@ -19,6 +16,4 @@ const socialNetworks = createStore({
     mutations: {
       
     },
-});
-
-export default socialNetworks;
+};

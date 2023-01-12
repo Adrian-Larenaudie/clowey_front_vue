@@ -2,16 +2,17 @@
     <h1>Ici c'est la page Portfolio</h1>
     <p>{{ getAllWorks.works[0].name }}</p>
     <img :src="getAllWorks.works[0].imageMosaic" :alt="getAllWorks.works[0].name">
+    <p>{{ getAllCategories }}</p>
 </template>
 
 <script>
-    import { mapState, mapGetters, mapActions } from "vuex";
+    import { mapGetters, mapActions } from "vuex";
 
     export default {
         computed: {
-            ...mapGetters('works', [
-                'getAllWorks',
-            ]),
+            ...mapGetters('works', ['getAllWorks']),
+            ...mapGetters( 'categories', ['getAllCategories']),
+            
 
         },
         methods: {
@@ -19,8 +20,8 @@
                 'actionGetAllWorks'
             ]),
         },
-        async mounted() {
-            this["actionGetAllWorks"]();
+        mounted() {
+            this.actionGetAllWorks();
         }
     };
 </script>

@@ -1,29 +1,13 @@
 <template>
-
-    <Navigation v-if="currentRouteName != 'backoffice' " />
-    <BackofficeNavigation v-if="currentRouteName === 'backoffice' " />
-
-    <h1>Hello world</h1>
     <router-view />
 </template>
 
 <script>
-
     import {  RouterView } from 'vue-router';
-    import Navigation from './components/blocks/Navigation.vue';
-    import BackofficeNavigation from './components/blocks/BackofficeNavigation.vue';
 
     export default {
         name: 'App',
         components: {
-            Navigation,
-            BackofficeNavigation,
-        },
-        computed: {
-            currentRouteName() {
-                console.log(this.$route.name);
-                return this.$route.name;
-            }
         },
         watch:{
             $route() {
@@ -36,17 +20,10 @@
 
 <style>
     #app {
-        font-family: 'Jet Brains Mono', sans-serif;
-        width: 100%;
-        height: 100vh;
-        background-color: #000;
-        color: #fff;
-    }
-    a {
-        text-decoration: none;
-        color: green;
-    }
-    a:hover {
-        color: red; 
+        font-family: Avenir, Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: center;
+        color: #2c3e50;
     }
 </style>

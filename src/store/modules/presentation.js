@@ -1,12 +1,9 @@
-import { createStore } from 'vuex';
 import axios from 'axios';
 
-const presentation = createStore({
-    state() {
-        return {
-            
-        }
-    }, 
+export default {
+    state:() => ({
+        
+    }), 
     
     getters: {
 
@@ -19,6 +16,4 @@ const presentation = createStore({
     mutations: {
       
     },
-});
-
-export default presentation;
+};

@@ -1,7 +1,6 @@
-import { createStore } from 'vuex';
 import axios from 'axios';
 
-const admin = createStore({
+export default {
     state:() => ({
         connected: false,
     }), 
@@ -17,6 +16,4 @@ const admin = createStore({
     mutations: {
       
     },
-});
-
-export default admin;
+};

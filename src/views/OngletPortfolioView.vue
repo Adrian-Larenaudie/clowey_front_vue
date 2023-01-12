@@ -11,9 +11,7 @@
     export default {
         computed: {
             ...mapGetters('works', ['getAllWorks']),
-            ...mapGetters( 'categories', ['getAllCategories']),
-            
-
+            ...mapGetters('categories', ['getAllCategories']),
         },
         methods: {
             ...mapActions('works', [

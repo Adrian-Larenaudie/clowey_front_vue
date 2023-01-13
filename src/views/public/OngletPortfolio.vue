@@ -4,8 +4,7 @@
     <div >
         <img v-for="work in getAllWorks.works" @load="loadedImg" class="mosaic_img"  :src="work.imageMosaic" :alt="work.name"/>
     </div>
-    
-    <p>{{ getAllCategories }}</p>
+    <!-- <p>{{ getAllCategories }}</p> -->
 </template>
 
 <script>
@@ -34,17 +33,24 @@
         methods: {
             ...mapActions('works', ['actionGetAllWorks']),
             ...mapMutations('utils', ['toggleMosaicLoader'],),
-
+            // permet d'ajouter la classe fadeUp à chaque image de façon asynchrone toutes les 250 ms
+            async addFadeUpClass() {
+                const images = document.querySelectorAll('.mosaic_img');
+                for (const image of images) {
+                    await new Promise((resolve) => setTimeout(resolve, 250));
+                    image.classList.add('fadeUp');
+                }
+            },
+            // sur l'évènement onload de chaque image on appel cette méthode
             loadedImg() {
+                // on se sert de ce compteur ->
                 this.count++;
+                // -> et de cette condition pour savoir quand toutes les images sont chargées
                 if(this.count === this.getAllWorks.works.length - 1) {
+                    // -> quand c'est le cas on arrête d'afficher le loader ->
                     this.toggleMosaicLoader();
-                    document.querySelectorAll('.mosaic_img').forEach(async (image) => {
-                        setTimeout(() => {
-                            image.classList.add('fadeUp');  
-                        }, 500);
-                        
-                    });
+                    // -> et on appel notre méthode pour animer l'affichage des images
+                    this.addFadeUpClass()
                 };
             }
         },
@@ -55,11 +61,12 @@
 </script>
 
 <style scoped>
-    img {
+    .mosaic_img {
+        padding: 0.5rem;
         height: 250px;
-        width: 250px;
-        transition: 1s;
+        width: 250px;      
         opacity: 0;
+        transition: 1s;
     }
     .fadeUp {
         opacity: 1;

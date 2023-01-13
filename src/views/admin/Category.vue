@@ -1,5 +1,5 @@
 <template>
-    <AdminHeader title="Page de gestion des Catégories" />
+    <AdminHeader class="title" title="Page de gestion des Catégories" />
 </template>
 
 <script>

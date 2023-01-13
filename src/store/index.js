@@ -6,6 +6,7 @@ import faq from './modules/faq.js';
 import newsletter from './modules/newsletter.js';
 import presentation from './modules/presentation.js';
 import socialNetworks from './modules/socialNetworks.js';
+import utils from './modules/utils.js';
 import works from './modules/works.js';
 
 export default createStore({
@@ -17,5 +18,6 @@ export default createStore({
     presentation,
     socialNetworks,
     works,
+    utils,
   },
 });

@@ -16,7 +16,7 @@ const routes = [
         component: Public.Layout,
         children: [
             { path: '', name: 'home', component: Public.Home },
-            { path: 'portfolio', name: 'portfolio', component: Public.OngletPortfolio },
+            { path: 'portfolio/:category', name: 'portfolio', component: Public.OngletPortfolio },
             { path: 'faq', name: 'faq', component: Public.Faq },
         ]
     },

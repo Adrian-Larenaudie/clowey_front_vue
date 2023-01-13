@@ -21,6 +21,6 @@
         },
         mounted() {
             this.actionGetAllWorks();
-        }
+        },
     };
 </script>

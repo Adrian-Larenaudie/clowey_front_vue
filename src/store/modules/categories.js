@@ -4,13 +4,13 @@ export default {
     namespaced: true,
     state() {
         return {
-            categories: ['toto'],
+            categories: [],
         }
     }, 
     
     getters: {
         getAllCategories: (state) => {
-            return state;
+            return state.categories;
            } 
     },
 

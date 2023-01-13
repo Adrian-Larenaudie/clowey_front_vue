@@ -12,7 +12,7 @@
                 accountService.logout(localStorage.getItem('email'))
                     .then(() => {
                         accountService.unSave();
-                        this.$router.push('/login');
+                        this.$router.push('/');
                     }); 
             },
         },

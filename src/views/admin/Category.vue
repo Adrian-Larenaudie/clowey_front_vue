@@ -1,12 +1,12 @@
 <template>
-    <AdminHeader title="Page de gestion des Oeuvres" />
+    <AdminHeader title="Page de gestion des Catégories" />
 </template>
 
 <script>
     import AdminHeader from '@/components/AdminHeader.vue';
     
     export default {
-        name: 'WorkAdmin',
+        name: 'CategoryAdmin',
         components: {
             AdminHeader
         },

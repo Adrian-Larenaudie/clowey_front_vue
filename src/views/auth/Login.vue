@@ -40,7 +40,7 @@
                 accountService.login(this.user)
                     .then((response) => {
                         accountService.saveUser(response.data.token, this.user.email);
-                        this.$router.push('/admin/work');
+                        this.$router.push('/admin/oeuvres');
                     });
             },
         },

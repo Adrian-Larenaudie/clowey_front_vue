@@ -27,7 +27,8 @@ const routes = [
         name: 'admin',
         component: Admin.Layout,
         children: [
-            { path: 'work', name: 'work', component: Admin.Work },
+            { path: 'oeuvres', name: 'work', component: Admin.Work },
+            { path: 'categories', name: 'category', component: Admin.Category },
         ]
     },
   

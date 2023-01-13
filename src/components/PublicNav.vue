@@ -11,7 +11,7 @@
         </div>
         <router-link class="link hover-underline-animation" to="/faq">F.A.Q</router-link>
 
-        <router-link class="link hover-underline-animation" to="/admin/work">Back-office</router-link>
+        <router-link class="link hover-underline-animation" to="/admin/oeuvres">Back-office</router-link>
     </nav>
 </template>
 
@@ -39,12 +39,11 @@
         padding: 30px;
         display: flex;
         justify-content: center;
-        background-color: #fff;
     }
 
     .link, .panel_link {
         font-weight: bold;
-        color: #2c3e50;
+        color: var(--font-link-color);
         cursor: pointer;
         text-decoration: none;
         margin: 0 1.1rem;
@@ -52,7 +51,7 @@
     }
 
     .link.router-link-exact-active {
-        color: #42b983;
+        color: var(--font-link-active-color);
     }
     .parent_block {
         position: relative;
@@ -60,8 +59,8 @@
     .panel {
         display: flex;
         flex-direction: column;
-        border: solid 1.5px #fff;
-        background-color: rgb(240, 240, 240);
+        border: solid 1.5px var(--border-panel-color);
+        background-color: var(--background-panel-color);
         width: fit-content;
         border-radius: .1rem;
         position: absolute;
@@ -94,7 +93,7 @@
         height: 2px;
         bottom: 0;
         left: 0;
-        background-color: #42b983;
+        background-color: var(--font-link-active-color);
         transform-origin: bottom right;
         transition: transform 0.25s ease-out;
     }

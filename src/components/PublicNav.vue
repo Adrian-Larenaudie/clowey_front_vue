@@ -1,9 +1,9 @@
 <template>
     <nav>
         <router-link class="link hover-underline-animation" to="/">Accueil</router-link>
-        <div class="parent_block">
+        <div class="parent_block" @mouseleave="hidePanel">
             <p class="link hover-underline-animation" @mouseover="displayPanel">Portfolio</p>
-            <div class="panel" v-if="getAllCategories.length > 0" @mouseleave="hidePanel">           
+            <div class="panel" v-if="getAllCategories.length > 0">           
                 <router-link class="panel_link hover-underline-animation" v-for="category in getAllCategories" :to="{ name: 'portfolio', params: { category: category.name } }">
                     {{ category.name }}
                 </router-link>

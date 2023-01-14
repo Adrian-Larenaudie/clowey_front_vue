@@ -1,7 +1,7 @@
 <template>
     <div>  
         <button @click="close">X</button>
-        <p :class="classGiver">{{ getMessage }}</p>
+        <p ref="infoMessage">{{ getMessage }}</p>
     </div>
 </template>
 
@@ -12,14 +12,16 @@
         computed: {
             ...mapGetters('utils', ['getMessage']),
         },
+        mounted() {
+                this.getMessage.includes('Erreur') ?
+                this.$refs.infoMessage.classList.add('warning') :
+                this.$refs.infoMessage.classList.add('success');
+            },
         methods: {
             ...mapMutations('utils', ['setMessage'],),
 
             close() {
                 this.setMessage('');
-            },
-            classGiver() {
-                return this.getMessage.includes('Erreur') ? 'warning' : 'success'
             },
         },
     };

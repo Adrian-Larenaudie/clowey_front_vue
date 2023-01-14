@@ -50,7 +50,10 @@
                     // -> quand c'est le cas on arrête d'afficher le loader ->
                     this.toggleMosaicLoader();
                     // -> et on appel notre méthode pour animer l'affichage des images
-                    this.addFadeUpClass()
+                    this.addFadeUpClass();
+                } else if (this.getAllWorks.length === 1) {
+                    this.toggleMosaicLoader();
+                    this.addFadeUpClass();
                 };
             }
         },

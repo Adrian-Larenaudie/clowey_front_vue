@@ -1,4 +1,5 @@
 import Axios from '@/_services/caller.service.js';
+import { accountService } from '@/_services';
 
 export default {
     namespaced: true,
@@ -28,8 +29,14 @@ export default {
             const response = await Axios.get('/work');
             context.commit('setAllWorks', response.data.works)
         },
-        async actionPostNewWork(context) {
- 
+        async actionPostNewWork(context, payload) {
+            console.log(payload);
+            console.log(accountService.getHeaderConfig());
+            const response = await Axios.post('/work', payload, accountService.getHeaderConfig());
+            console.log(response);
+            if(response.status === 200) {
+                context.dispatch('actionGetAllWorks');
+            }
         },
     },
     

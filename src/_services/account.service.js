@@ -30,6 +30,16 @@ let isLogged = () => {
     return !! token;
 };
 
+let getHeaderConfig = () => {
+    let token = localStorage.getItem('token')
+    return {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data'
+        }
+    };
+};
+
 export const accountService = {
     login,
     logout,
@@ -37,4 +47,5 @@ export const accountService = {
     isLogged,
     getToken,
     unSave,
+    getHeaderConfig,
 };

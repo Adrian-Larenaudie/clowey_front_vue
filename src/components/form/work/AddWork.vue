@@ -23,7 +23,7 @@
                 </div>
 
                 <div class="formGroup">
-                    <p>Fichier image</p>
+                    <p>Fichier image (.jpg)</p>
                     <label class="fileLabel" for="files">Choisir un fichier</label>
                     <input @change="onChangeField" name="file" id="files" v-on:change="getNewWork.file" class="inputFile" type="file">
                 </div>   
@@ -48,7 +48,7 @@
 
 <script>
     import { mapGetters, mapActions, mapMutations } from "vuex";
-    import { validationService } from '@/_services'
+    import { validationService } from '@/_services';
     export default {
         name: 'WorkAddForm',
         data() {
@@ -61,17 +61,21 @@
         },
         methods: {
             ...mapMutations('works', ['setNewWorkValue'],),
+            ...mapActions('works', ['actionPostNewWork'],),
 
             submitNewWork() {
-                console.log(this.getNewWork);
-                if(validationService.newWorkForm({})) {
-                    
-                }
-                console.log('ajout d\'une oeuvre en BDD mais d\'abord on va passer par un service de validation des données');
+                if(validationService.newWorkForm(this.getNewWork)) {
+                    this.actionPostNewWork({
+                        name: this.getNewWork.name,
+                        date: this.getNewWork.date,
+                        description: this.getNewWork.description,
+                        category_id: this.getNewWork.category !== 'categorie' ? parseInt(this.getNewWork.category, 10) : null,
+                        image: this.getNewWork.image,
+                    });    
+                } 
             },
 
             onChangeField(event) {
-                console.log(event);
                 // s'il s'agit de l'input file
                 if(event.target.name === 'file') {
                     // chargement de l'image dans le state

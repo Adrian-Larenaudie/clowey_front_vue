@@ -1,16 +1,19 @@
-let newWorkForm = (payload) => {
-    const expr = 'Papayas';
-    switch (expr) {
-        case 'Oranges':
-            console.log('Oranges are $0.59 a pound.');
-            break;
-        case 'Mangoes':
-        case 'Papayas':
-            console.log('Mangoes and papayas are $2.79 a pound.');
-            // Expected output: "Mangoes and papayas are $2.79 a pound."
-            break;
-        default:
-            console.log(`Sorry, we are out of ${expr}.`);
+let newWorkForm = (newWork) => {
+    const count = newWork.image.name.length
+    const extension = newWork.image.name[count-3] + newWork.image.name[count-2] + newWork.image.name[count-1]
+    console.log(extension);
+
+    if(newWork.name.length > 20) {
+        return false;
+    }
+    if(newWork.description.length > 250) {
+        return false;
+    }
+    if(extension !== 'jpg') {
+        return false;
+    }
+    if(newWork.category_id === 'categorie') {
+        return false;
     }
     return true;
 };

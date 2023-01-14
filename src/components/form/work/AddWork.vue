@@ -5,7 +5,7 @@
 
             <div class="formInputs">
                 <div class="formGroup">
-                    <label for="">Nom de l'oeuvre</label>
+                    <label for="">Nom de l'oeuvre*</label>
                     <input @change="onChangeField" :value="getNewWork.name" name="name" class="formInput" type="text" placeholder="Nom">
                 </div>
 
@@ -15,7 +15,7 @@
                 </div>  
 
                 <div class="formGroup">
-                    <label for="">Catégorie à associer</label>
+                    <label for="">Catégorie à associer*</label>
                     <select @change="onChangeField" :value="getNewWork.category" class="formSelect" name="category" id="">
                         <option value="categorie">Categorie</option>
                         <option v-for="category in getAllCategories" :value="category.id">{{ category.name }}</option>                       
@@ -23,14 +23,14 @@
                 </div>
 
                 <div class="formGroup">
-                    <p>Fichier image (.jpg)</p>
+                    <p>Fichier image (.jpg)*</p>
                     <label class="fileLabel" for="files">Choisir un fichier</label>
                     <input @change="onChangeField" name="file" id="files" v-on:change="getNewWork.file" class="inputFile" type="file">
                 </div>   
             </div>
 
             <div class="formTextarea">
-                <label class="textareaLabel" for="">Description</label>
+                <label class="textareaLabel" for="">Description*</label>
                 <textarea @change="onChangeField" :value="getNewWork.description" name="description" id="" placeholder="Description"></textarea>
             </div>
         </div>
@@ -62,9 +62,14 @@
         methods: {
             ...mapMutations('works', ['setNewWorkValue'],),
             ...mapActions('works', ['actionPostNewWork'],),
+            ...mapMutations('utils', ['setMessage'],),
+            ...mapMutations('utils', ['toggleLoader'],),
 
             submitNewWork() {
-                if(validationService.newWorkForm(this.getNewWork)) {
+                const message = validationService.newWorkForm(this.getNewWork);
+                this.setMessage(''); 
+                if(message.includes('succès')) {
+                    this.toggleLoader();
                     this.actionPostNewWork({
                         name: this.getNewWork.name,
                         date: this.getNewWork.date,
@@ -72,7 +77,9 @@
                         category_id: this.getNewWork.category !== 'categorie' ? parseInt(this.getNewWork.category, 10) : null,
                         image: this.getNewWork.image,
                     });    
-                } 
+                } else {
+                    this.setMessage(message);
+                }
             },
 
             onChangeField(event) {

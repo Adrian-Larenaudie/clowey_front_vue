@@ -30,12 +30,16 @@ export default {
             context.commit('setAllWorks', response.data.works)
         },
         async actionPostNewWork(context, payload) {
-            console.log(payload);
-            console.log(accountService.getHeaderConfig());
-            const response = await Axios.post('/work', payload, accountService.getHeaderConfig());
-            console.log(response);
-            if(response.status === 200) {
+            try {
+                await Axios.post('/work', payload, accountService.getHeaderConfig());
+                context.commit('utils/toggleLoader', {}, {root: true});
                 context.dispatch('actionGetAllWorks');
+                context.commit('utils/setMessage', 'L\'oeuvre a été ajoutée avec succès :)', {root: true});
+            
+            } catch(err) {
+                console.log(err);
+                context.commit('utils/toggleLoader', {}, {root: true});
+                context.commit('utils/setMessage', 'Erreur inconnue échec de l\'ajout', {root: true});
             }
         },
     },

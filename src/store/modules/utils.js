@@ -1,12 +1,16 @@
 export default {
     namespaced: true,
     state:() => ({
-       mosaic_loader: false,
+       loader: false,
+       message: '',
     }), 
     
     getters: {
-        getMosaicLoader: (state) => {
+        getLoader: (state) => {
             return state.mosaic_loader;
+        },
+        getMessage: (state) => {
+            return state.message;
         },
     },
 
@@ -15,8 +19,11 @@ export default {
     },
     
     mutations: {
-        toggleMosaicLoader(state) {
+        toggleLoader(state) {
             state.mosaic_loader = !state.mosaic_loader;
-        }
+        },
+        setMessage(state, message) {
+            state.message = message;
+        },
     },
 };

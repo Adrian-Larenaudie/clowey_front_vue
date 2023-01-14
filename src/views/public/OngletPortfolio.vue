@@ -1,6 +1,6 @@
 <template>
     <h1>Ici c'est la page Portfolio</h1>
-    <Loader v-if="getMosaicLoader" :loading="true" :color="color" :height="'35px'" :width="'35px'"></Loader>
+    <Loader v-if="getLoader" :loading="true" :color="color" :height="'35px'" :width="'35px'"></Loader>
     <div >
         <img v-for="work in getAllWorks" @load="loadedImg" class="mosaic_img"  :src="work.imageMosaic" :alt="work.name"/>
     </div>
@@ -9,12 +9,12 @@
 
 <script>
     import { mapGetters, mapActions, mapMutations } from "vuex";
-    import Loader from 'vue-spinner/src/BeatLoader.vue'
+    import Loader from 'vue-spinner/src/BeatLoader.vue';
 
     export default {
         name: 'OngletPortfolio',
         components: {
-            Loader
+            Loader,
         },
         data() {
             return {
@@ -25,14 +25,14 @@
         computed: {
             ...mapGetters('works', ['getAllWorks']),
             ...mapGetters('categories', ['getAllCategories']),
-            ...mapGetters('utils', ['getMosaicLoader']),
+            ...mapGetters('utils', ['getLoader']),
         },
         created() {
-            this.toggleMosaicLoader();
+            this.toggleLoader();
         },
         methods: {
             ...mapActions('works', ['actionGetAllWorks']),
-            ...mapMutations('utils', ['toggleMosaicLoader'],),
+            ...mapMutations('utils', ['toggleLoader'],),
             // permet d'ajouter la classe fadeUp à chaque image de façon asynchrone toutes les 250 ms
             async addFadeUpClass() {
                 const images = document.querySelectorAll('.mosaic_img');
@@ -48,11 +48,11 @@
                 // -> et de cette condition pour savoir quand toutes les images sont chargées
                 if(this.count === this.getAllWorks.length - 1) {
                     // -> quand c'est le cas on arrête d'afficher le loader ->
-                    this.toggleMosaicLoader();
+                    this.toggleLoader();
                     // -> et on appel notre méthode pour animer l'affichage des images
                     this.addFadeUpClass();
                 } else if (this.getAllWorks.length === 1) {
-                    this.toggleMosaicLoader();
+                    this.toggleLoader();
                     this.addFadeUpClass();
                 };
             }

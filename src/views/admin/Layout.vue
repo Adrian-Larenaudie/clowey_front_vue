@@ -11,7 +11,7 @@
     export default {
         name: 'AdminLayout',
         components: {
-            AdminNav
+            AdminNav,
         },
     };
 </script>

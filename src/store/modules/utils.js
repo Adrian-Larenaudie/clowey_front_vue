@@ -1,13 +1,13 @@
 export default {
     namespaced: true,
     state:() => ({
-       mosaic_loader: false, 
+       mosaic_loader: false,
     }), 
     
     getters: {
         getMosaicLoader: (state) => {
             return state.mosaic_loader;
-        }
+        },
     },
 
     actions: {

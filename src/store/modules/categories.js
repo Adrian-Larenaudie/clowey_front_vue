@@ -1,4 +1,4 @@
-import axios from 'axios';
+import Axios from '@/_services/caller.service.js';
 
 export default {
     namespaced: true,
@@ -16,7 +16,7 @@ export default {
 
     actions: {
         async actionGetAllCategories(context) {
-            const response = await axios.get('http://localhost:8000/api/category');
+            const response = await Axios.get('/category');
             console.log(response.data.categories);
             context.commit('setAllCategories', response.data.categories)
         },

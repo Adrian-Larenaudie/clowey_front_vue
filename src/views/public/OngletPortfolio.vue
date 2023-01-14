@@ -2,7 +2,7 @@
     <h1>Ici c'est la page Portfolio</h1>
     <Loader v-if="getMosaicLoader" :loading="true" :color="color" :height="'35px'" :width="'35px'"></Loader>
     <div >
-        <img v-for="work in getAllWorks.works" @load="loadedImg" class="mosaic_img"  :src="work.imageMosaic" :alt="work.name"/>
+        <img v-for="work in getAllWorks" @load="loadedImg" class="mosaic_img"  :src="work.imageMosaic" :alt="work.name"/>
     </div>
     <!-- <p>{{ getAllCategories }}</p> -->
 </template>
@@ -46,7 +46,7 @@
                 // on se sert de ce compteur ->
                 this.count++;
                 // -> et de cette condition pour savoir quand toutes les images sont chargées
-                if(this.count === this.getAllWorks.works.length - 1) {
+                if(this.count === this.getAllWorks.length - 1) {
                     // -> quand c'est le cas on arrête d'afficher le loader ->
                     this.toggleMosaicLoader();
                     // -> et on appel notre méthode pour animer l'affichage des images

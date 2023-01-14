@@ -1,4 +1,4 @@
-import axios from 'axios';
+import Axios from '@/_services/caller.service.js';
 
 export default {
     namespaced: true,

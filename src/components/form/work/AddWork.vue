@@ -6,37 +6,37 @@
             <div class="formInputs">
                 <div class="formGroup">
                     <label for="">Nom de l'oeuvre</label>
-                    <input v-model="work.name" class="formInput" type="text" placeholder="Nom">
+                    <input @change="onChangeField" :value="getNewWork.name" name="name" class="formInput" type="text" placeholder="Nom">
                 </div>
 
                 <div class="formGroup">
                     <label for="">Date de réalisation</label>
-                    <input v-model="work.date" class="formInput" type="date" >
+                    <input @change="onChangeField" :value="getNewWork.date" name="date" class="formInput" type="date" >
                 </div>  
 
                 <div class="formGroup">
                     <label for="">Catégorie à associer</label>
-                    <select v-model="work.category" class="formSelect" name="" id="">
-                        <option value="">catégotie 1</option>
-                        <option value="">catégotie 2</option>
+                    <select @change="onChangeField" :value="getNewWork.category" class="formSelect" name="category" id="">
+                        <option value="categorie">Categorie</option>
+                        <option v-for="category in getAllCategories" :value="category.id">{{ category.name }}</option>                       
                     </select>
                 </div>
 
                 <div class="formGroup">
                     <p>Fichier image</p>
                     <label class="fileLabel" for="files">Choisir un fichier</label>
-                    <input @change="previewImage" name="files" id="files" v-on:change="work.file" class="inputFile" type="file">
+                    <input @change="onChangeField" name="file" id="files" v-on:change="getNewWork.file" class="inputFile" type="file">
                 </div>   
             </div>
 
             <div class="formTextarea">
                 <label class="textareaLabel" for="">Description</label>
-                <textarea v-model="work.description" name="" id="" placeholder="Description"></textarea>
+                <textarea @change="onChangeField" :value="getNewWork.description" name="description" id="" placeholder="Description"></textarea>
             </div>
         </div>
 
         <div class="imageContainer">
-            <img v-if="imageUrl" :src="imageUrl" alt=""/>
+            <img v-if="getNewWork.imageUrl" :src="getNewWork.imageUrl" alt=""/>
         </div>
 
         <div class="formRightSide">
@@ -47,39 +47,47 @@
 </template>
 
 <script>
+    import { mapGetters, mapActions, mapMutations } from "vuex";
+    import { validationService } from '@/_services'
     export default {
         name: 'WorkAddForm',
         data() {
             return {
-                work: {
-                    name: null,
-                    date: null,
-                    image: null,
-                    category: null,
-                    description: null,
-                },
-                imageUrl: null,
             };
         },
+        computed: {
+            ...mapGetters('works', ['getNewWork']),
+            ...mapGetters('categories', ['getAllCategories']),
+        },
         methods: {
+            ...mapMutations('works', ['setNewWorkValue'],),
+
             submitNewWork() {
-                console.log(this.work);
-                console.log('ajout d\'une oeuvre en BDD');
-            },
-            //l'image est chargée dans une variable sur l'évènement onChange de l'input file
-            previewImage(event) {
-                // nouvelle class FileReader
-                let reader = new FileReader();
-                // sur l'évènement onLoad de la classe
-                reader.onload = (event) => {
-                    // la variable imageUrl reçoit l'image chargée dans l'input file
-                    this.imageUrl = event.target.result;
+                console.log(this.getNewWork);
+                if(validationService.newWorkForm({})) {
+                    
                 }
-                // la variable imageUrl reçoit un lien pour afficher l'image
-                reader.readAsDataURL(event.target.files[0]);
-                // la variable image reçoit le fichier à envoyer vers le backend
-                this.work.image = event.target.files[0];
-                console.log(this.image);
+                console.log('ajout d\'une oeuvre en BDD mais d\'abord on va passer par un service de validation des données');
+            },
+
+            onChangeField(event) {
+                console.log(event);
+                // s'il s'agit de l'input file
+                if(event.target.name === 'file') {
+                    // chargement de l'image dans le state
+                    let reader = new FileReader();
+                    reader.onload = (event) => {
+                        this.setNewWorkValue({field: 'imageUrl', value: event.target.result});
+                    }
+                    // récupération d'une url pour l'afficher 
+                    reader.readAsDataURL(event.target.files[0]);
+                    // sauvegarde du fichier image dans le state du formulaire
+                    this.setNewWorkValue({field: 'image', value: event.target.files[0]});
+                } else {
+                    // sur les autres inputs sauvegarde des valeurs dans le state du formulaire
+                    this.setNewWorkValue({field: event.target.name, value: event.target.value})
+                }
+                
             },
         },
     };

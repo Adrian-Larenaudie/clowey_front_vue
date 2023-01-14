@@ -10,7 +10,7 @@
 
 <style scoped>
     .nav_button {
-        font-size: 1.2rem;
+        font-size: var(--font-button-size);
         margin: 1rem;
         border: 2px solid transparent;
         border-radius: .2rem;

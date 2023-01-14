@@ -4,7 +4,6 @@
         <div class="formLeftSide">
 
             <div class="formInputs">
-
                 <div class="formGroup">
                     <label for="">Nom de l'oeuvre</label>
                     <input v-model="work.name" class="formInput" type="text" placeholder="Nom">
@@ -27,26 +26,17 @@
                     <p>Fichier image</p>
                     <label class="fileLabel" for="files">Choisir un fichier</label>
                     <input name="files" id="files" v-on:change="work.file" class="inputFile" type="file">
-                </div>
-                
+                </div>      
             </div>
 
             <div class="formTextarea">
-                <label for="">Description</label>
+                <label class="textareaLabel" for="">Description</label>
                 <textarea v-model="work.description" name="" id="" placeholder="Description"></textarea>
             </div>
-
         </div>
 
         <div class="formRightSide">
-
-            <div class="formGroup--banner">
-                <label for="banner">Présence sur la bannière</label>
-                <input v-model="work.banner" class="formChcekbox" type="checkbox">
-            </div>
-
             <button class="formSubmit">Ajouter</button>  
-
         </div>
         
     </form>
@@ -80,10 +70,11 @@
     form {
         border: solid 2px rgb(164, 164, 164);
         border-radius: .2rem;
-        margin: .5rem;
+        margin: 1.5rem;
         padding: .5rem;
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap;
         font-weight: 600;
     }
     .formLeftSide {
@@ -91,11 +82,13 @@
     }
     .formInputs {
         display: flex;
+        flex-wrap: wrap;
     }
     label {
         padding-bottom: .4rem;
     }
     .formInput, .formSelect {
+        border-radius: .2rem;
         padding: .5rem;
         width: 190px;
         border: 2px solid rgb(164, 164, 164);
@@ -119,6 +112,9 @@
         cursor: pointer;
         transition: .5s;
     }
+    .fileLabel:hover {
+        border: 2px solid #000;
+    }
     .formSelect {
 
     }
@@ -126,27 +122,27 @@
 
     }
     textarea {
+        border-radius: .2rem;
         border: 2px solid rgb(164, 164, 164);
         resize : none;
-        width: 100%;
+        width: 97%;
         padding: .5rem;
+        height: 4rem;
     }
 
     .formRightSide {
-
+        display: flex;
+        align-items: flex-end;
     }
     .formGroup, .formTextarea {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        margin: 1rem;
-
-    }
-    .formChcekbox {
+        padding: 1rem;
 
     }
     .formSubmit {
-        font-size: 1.2rem;
+        font-size: var(--font-button-size);
         margin: 1rem;
         border: 2px solid transparent;
         border-radius: .2rem;
@@ -160,5 +156,37 @@
         background-color: var(--button-background-hover-color);
         color: var(--button-background-submit-color);
         border: 2px solid var(--button-background-submit-color);
+    }
+
+    /* responsive part */
+    @media only screen and (max-width: 931px)  {
+        form {
+            flex-direction: column;
+            margin: 2rem;
+        }
+        .formInputs {
+            flex-direction: column;
+            align-items: center;
+        }
+        .formInput, .formSelect, .fileLabel, textarea {
+            width: 200px;
+        }
+        .formSelect {
+            width: 220px;
+        }
+        .fileLabel {
+            width: 184px;
+        }
+        .formTextarea {
+            width: 230px;
+            margin: auto;
+            
+        }
+        .formRightSide {
+            justify-content: center;
+        }
+        .formSubmit {
+            width: 220px;
+        }
     }
 </style>

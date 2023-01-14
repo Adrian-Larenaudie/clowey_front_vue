@@ -1,4 +1,4 @@
-/* color palette */
+/* variables */
 :root {
   /* FONT COLOR */
   --font-base-color: #2c3e50;
@@ -6,6 +6,17 @@
   --font-link-active-color: #42b983;
   --font-link-hover-color: ;
   /* FONT COLOR */
+
+  /* FONT SIZE */
+  --font-base-size: ;
+  --font-button-size: 1rem;
+  --font-link-size: ;
+  --font-title-size: ;
+  /* FONT SIZE */
+
+  /*  FONT WEIGHT */
+  
+  /*  FONT WEIGHT */
 
   /* BUTTON FONT COLOR */
   --button-light-color: #fff;
@@ -27,7 +38,6 @@
   --background-base-color: #fff;
   --background-panel-color: rgb(241, 241, 241);
   /* BACKGROUND COLOR */
-
 
   /* BORDER COLOR */
   --border-panel-color: #fff;

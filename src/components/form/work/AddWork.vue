@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="submitAddWork">
+    <form @submit.prevent="submitNewWork">
 
         <div class="formLeftSide">
 
@@ -25,14 +25,18 @@
                 <div class="formGroup">
                     <p>Fichier image</p>
                     <label class="fileLabel" for="files">Choisir un fichier</label>
-                    <input name="files" id="files" v-on:change="work.file" class="inputFile" type="file">
-                </div>      
+                    <input @change="previewImage" name="files" id="files" v-on:change="work.file" class="inputFile" type="file">
+                </div>   
             </div>
 
             <div class="formTextarea">
                 <label class="textareaLabel" for="">Description</label>
                 <textarea v-model="work.description" name="" id="" placeholder="Description"></textarea>
             </div>
+        </div>
+
+        <div class="imageContainer">
+            <img v-if="imageUrl" :src="imageUrl" alt=""/>
         </div>
 
         <div class="formRightSide">
@@ -48,19 +52,34 @@
         data() {
             return {
                 work: {
-                    name: '',
-                    date: '',
-                    file: '',
-                    category: '',
-                    description: '',
-                    banner: '',
+                    name: null,
+                    date: null,
+                    image: null,
+                    category: null,
+                    description: null,
                 },
+                imageUrl: null,
             };
         },
         methods: {
-            submitAddWork() {
+            submitNewWork() {
                 console.log(this.work);
                 console.log('ajout d\'une oeuvre en BDD');
+            },
+            //l'image est chargée dans une variable sur l'évènement onChange de l'input file
+            previewImage(event) {
+                // nouvelle class FileReader
+                let reader = new FileReader();
+                // sur l'évènement onLoad de la classe
+                reader.onload = (event) => {
+                    // la variable imageUrl reçoit l'image chargée dans l'input file
+                    this.imageUrl = event.target.result;
+                }
+                // la variable imageUrl reçoit un lien pour afficher l'image
+                reader.readAsDataURL(event.target.files[0]);
+                // la variable image reçoit le fichier à envoyer vers le backend
+                this.work.image = event.target.files[0];
+                console.log(this.image);
             },
         },
     };
@@ -131,8 +150,12 @@
     }
 
     .formRightSide {
+        margin: auto;
+        margin-right: 0;
+        margin-bottom: 0;
         display: flex;
         align-items: flex-end;
+        justify-content: flex-end;
     }
     .formGroup, .formTextarea {
         display: flex;
@@ -140,6 +163,19 @@
         align-items: flex-start;
         padding: 1rem;
 
+    }
+    .imageContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        margin: 1rem;
+    }
+    img {
+        overflow: hidden;
+        width: 220px;
+        border: 2px solid rgb(164, 164, 164);
+        border-radius: .2rem;
     }
     .formSubmit {
         font-size: var(--font-button-size);
@@ -159,7 +195,7 @@
     }
 
     /* responsive part */
-    @media only screen and (max-width: 931px)  {
+    @media only screen and (max-width: 960px)  {
         form {
             flex-direction: column;
             margin: 2rem;
@@ -183,6 +219,7 @@
             
         }
         .formRightSide {
+            margin: auto;
             justify-content: center;
         }
         .formSubmit {

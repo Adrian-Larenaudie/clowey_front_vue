@@ -40,7 +40,8 @@
         </div>
 
         <div class="formRightSide">
-            <button class="formSubmit">Ajouter</button>  
+            <LoaderComponent class="loader" v-if="getLoader('add_work_loader')"/>
+            <button v-if="!getLoader('add_work_loader')" class="formSubmit">Ajouter</button>  
         </div>
         
     </form>
@@ -49,8 +50,13 @@
 <script>
     import { mapGetters, mapActions, mapMutations } from "vuex";
     import { validationService } from '@/_services';
+    import LoaderComponent from "@/components/LoaderComponent.vue";
+
     export default {
         name: 'WorkAddForm',
+        components: {
+            LoaderComponent,
+        },
         data() {
             return {
             };
@@ -58,6 +64,7 @@
         computed: {
             ...mapGetters('works', ['getNewWork']),
             ...mapGetters('categories', ['getAllCategories']),
+            ...mapGetters('utils', ['getLoader']),
         },
         methods: {
             ...mapMutations('works', ['setNewWorkValue'],),
@@ -69,7 +76,7 @@
                 const message = validationService.newWorkForm(this.getNewWork);
                 this.setMessage(''); 
                 if(message.includes('succès')) {
-                    this.toggleLoader();
+                    this.toggleLoader('add_work_loader');
                     this.actionPostNewWork({
                         name: this.getNewWork.name,
                         date: this.getNewWork.date,
@@ -105,6 +112,9 @@
 </script>
 
 <style scoped>
+    .loader {
+        margin: 1rem;
+    }
     form {
         border: solid 2px rgb(164, 164, 164);
         border-radius: .2rem;

@@ -1,7 +1,9 @@
 <template>
     <h1>Ici c'est la page Portfolio</h1>
-    <Loader v-if="getLoader" :loading="true" :color="color" :height="'35px'" :width="'35px'"></Loader>
+    <loaderComponent />
+    <Loader v-if="getLoader('mosaic_loader')" :loading="true" :color="color" :height="'35px'" :width="'35px'"></Loader>
     <div >
+        <LoaderComponent v-if="getLoader('mosaic_loader')" />
         <img v-for="work in getAllWorks" @load="loadedImg" class="mosaic_img"  :src="work.imageMosaic" :alt="work.name"/>
     </div>
     <!-- <p>{{ getAllCategories }}</p> -->
@@ -9,12 +11,12 @@
 
 <script>
     import { mapGetters, mapActions, mapMutations } from "vuex";
-    import Loader from 'vue-spinner/src/BeatLoader.vue';
+    import LoaderComponent from "@/components/LoaderComponent.vue";
 
     export default {
         name: 'OngletPortfolio',
         components: {
-            Loader,
+            LoaderComponent,
         },
         data() {
             return {
@@ -28,7 +30,7 @@
             ...mapGetters('utils', ['getLoader']),
         },
         created() {
-            this.toggleLoader();
+            this.toggleLoader('mosaic_loader');
         },
         methods: {
             ...mapActions('works', ['actionGetAllWorks']),
@@ -48,11 +50,11 @@
                 // -> et de cette condition pour savoir quand toutes les images sont chargées
                 if(this.count === this.getAllWorks.length - 1) {
                     // -> quand c'est le cas on arrête d'afficher le loader ->
-                    this.toggleLoader();
+                    this.toggleLoader('mosaic_loader');
                     // -> et on appel notre méthode pour animer l'affichage des images
                     this.addFadeUpClass();
                 } else if (this.getAllWorks.length === 1) {
-                    this.toggleLoader();
+                    this.toggleLoader('mosaic_loader');
                     this.addFadeUpClass();
                 };
             }

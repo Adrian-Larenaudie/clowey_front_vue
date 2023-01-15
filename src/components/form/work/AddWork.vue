@@ -86,6 +86,7 @@
                     });    
                 } else {
                     this.setMessage(message);
+                    window.scroll(0, 0);
                 }
             },
 
@@ -124,6 +125,7 @@
         justify-content: space-between;
         flex-wrap: wrap;
         font-weight: 600;
+        margin-top: 0;
     }
     .formLeftSide {
 

@@ -35,12 +35,14 @@ export default {
                 context.commit('utils/toggleLoader', 'add_work_loader', {root: true});
                 context.dispatch('actionGetAllWorks');
                 context.commit('utils/setMessage', 'L\'oeuvre a été ajoutée avec succès :)', {root: true});
+                context.commit('cleanAddFormValues');
             
             } catch(err) {
                 console.log(err);
                 context.commit('utils/toggleLoader', 'add_work_loader', {root: true});
                 context.commit('utils/setMessage', 'Erreur inconnue échec de l\'ajout', {root: true});
             }
+            window.scroll(0, 0);
         },
     },
     
@@ -50,6 +52,16 @@ export default {
         },
         setNewWorkValue(state, payload) {
             state.newWork[payload.field] = payload.value;
+        },
+        cleanAddFormValues(state) {
+            state.newWork = {
+                name: '',
+                date: '',
+                image: '',
+                category: 'categorie',
+                description: '',
+                imageUrl: null,
+            };
         },
     },
 };

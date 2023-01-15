@@ -1,5 +1,5 @@
 <template>
-    <div ref="infoMessage">  
+    <div ref="infoMessage"> 
         <p class="button" @click="close">X</p>
         <p >{{ getMessage }}</p>
     </div>
@@ -13,15 +13,27 @@
             ...mapGetters('utils', ['getMessage']),
         },
         mounted() {
-                this.getMessage.includes('Erreur') ?
-                this.$refs.infoMessage.classList.add('warning') :
+            setTimeout(() => {
+                this.$refs.infoMessage.style.opacity = 1;
+                this.$refs.infoMessage.style.transform = 'translateY(0%)';
+            }, 100);
+            if(this.getMessage.includes('Erreur')) {
+                this.$refs.infoMessage.classList.add('warning');
+                this.$refs.infoMessage.classList.remove('success');
+            } else {
                 this.$refs.infoMessage.classList.add('success');
-            },
+                this.$refs.infoMessage.classList.remove('warning');
+            }                
+        },
         methods: {
             ...mapMutations('utils', ['setMessage'],),
 
             close() {
-                this.setMessage('');
+                this.$refs.infoMessage.style.opacity = 0;
+                setTimeout(() => {
+                    this.setMessage('');
+                }, 600);
+                
             },
         },
     };
@@ -30,11 +42,16 @@
 <style scoped>
     div {
         margin: auto;
+        margin-top: .5rem;
+        margin-bottom: .5rem;
         width: fit-content;
-        padding: 1.5rem 5rem;
+        padding: 1rem 5rem;
         display: flex;
         justify-content: center;
         position: relative;
+        transition: .5s;
+        opacity: 0;
+        transform: translateY(40%);
     }
     .warning {
         border: solid 1px var(--border-error-message-color);

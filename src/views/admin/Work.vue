@@ -1,6 +1,7 @@
 <template>
     <AdminHeader class="title" title="Page de gestion des Oeuvres" />
     <MessageInfo v-if="getMessage !== ''" />
+    <div class="meuble" v-if="getMessage === ''"></div>
     <AddWork />
 </template>
 
@@ -27,5 +28,9 @@
     .title {
         font-size: 2rem;
         margin: 1rem;
+        margin-bottom: 0;
+    }
+    .meuble {
+        height: calc(50px + 1rem);
     }
 </style>

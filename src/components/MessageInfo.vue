@@ -25,6 +25,19 @@
                 this.$refs.infoMessage.classList.remove('warning');
             }                
         },
+        updated() {
+            setTimeout(() => {
+                this.$refs.infoMessage.style.opacity = 1;
+                this.$refs.infoMessage.style.transform = 'translateY(0%)';
+            }, 100);
+            if(this.getMessage.includes('Erreur')) {
+                this.$refs.infoMessage.classList.add('warning');
+                this.$refs.infoMessage.classList.remove('success');
+            } else {
+                this.$refs.infoMessage.classList.add('success');
+                this.$refs.infoMessage.classList.remove('warning');
+            }                
+        },
         methods: {
             ...mapMutations('utils', ['setMessage'],),
 
@@ -51,7 +64,7 @@
         position: relative;
         transition: .5s;
         opacity: 0;
-        transform: translateY(40%);
+        transform: translateY(30%);
     }
     .warning {
         border: solid 1px var(--border-error-message-color);

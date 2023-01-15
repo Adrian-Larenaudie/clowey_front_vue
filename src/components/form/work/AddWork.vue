@@ -93,6 +93,7 @@
             onChangeField(event) {
                 // s'il s'agit de l'input file
                 if(event.target.name === 'file') {
+                    console.log('coucoiu');
                     // chargement de l'image dans le state
                     let reader = new FileReader();
                     reader.onload = (event) => {
@@ -230,6 +231,7 @@
         form {
             flex-direction: column;
             margin: 2rem;
+            margin-top: 0;
         }
         .formInputs {
             flex-direction: column;

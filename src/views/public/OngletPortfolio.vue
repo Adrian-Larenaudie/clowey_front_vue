@@ -1,9 +1,7 @@
 <template>
     <h1>Ici c'est la page Portfolio</h1>
-    <loaderComponent />
-    <Loader v-if="getLoader('mosaic_loader')" :loading="true" :color="color" :height="'35px'" :width="'35px'"></Loader>
-    <div >
-        <LoaderComponent v-if="getLoader('mosaic_loader')" />
+    <LoaderComponent v-if="getLoader('mosaic_loader')" />
+    <div >        
         <img v-for="work in getAllWorks" @load="loadedImg" class="mosaic_img"  :src="work.imageMosaic" :alt="work.name"/>
     </div>
     <!-- <p>{{ getAllCategories }}</p> -->

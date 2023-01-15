@@ -1,7 +1,7 @@
 <template>
-    <div>  
-        <button @click="close">X</button>
-        <p ref="infoMessage">{{ getMessage }}</p>
+    <div ref="infoMessage">  
+        <p class="button" @click="close">X</p>
+        <p >{{ getMessage }}</p>
     </div>
 </template>
 
@@ -29,16 +29,37 @@
 
 <style scoped>
     div {
+        margin: auto;
+        width: fit-content;
+        padding: 1.5rem 5rem;
         display: flex;
         justify-content: center;
-    }
-    p {
-        margin-left: 1rem;
+        position: relative;
     }
     .warning {
-        color: red;
+        border: solid 1px var(--border-error-message-color);
+        border-radius: .4rem;
+        background-color: var(--background-error-message-color);
+        color: var(--font-error-message-color);
     }
     .success {
-        color: green;
+        border: solid 1px var(--border-success-message-color);
+        border-radius: .4rem;
+        background-color: var(--background-success-message-color);
+        color: var(--font-success-message-color);
+    }
+    .button {
+        padding: .5rem;
+        top: 0;
+        right: 0;
+        font-weight: 600;
+        position: absolute;
+        color: rgb(115, 115, 115);
+        transition: .4s;
+        font-size: 1.2rem;
+        cursor: pointer;
+    }
+    .button:hover {
+        color: black;
     }
 </style>

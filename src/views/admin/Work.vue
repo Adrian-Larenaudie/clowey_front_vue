@@ -3,13 +3,16 @@
     <MessageInfo v-if="getMessage !== ''" />
     <div class="meuble" v-if="getMessage === ''"></div>
     <AddWork />
+    <EditWork v-for="work in getAllWorks" :workId="work.id" />
 </template>
 
 <script>
     import MessageInfo from '@/components/MessageInfo.vue';
     import AdminHeader from '@/components/AdminHeader.vue';
     import AddWork from '@/components/form/work/AddWork.vue';
-    import { mapGetters } from "vuex";
+    import EditWork from '@/components/form/work/EditWork.vue';
+
+    import { mapGetters, mapActions, mapMutations } from "vuex";
 
     export default {
         name: 'WorkAdmin',
@@ -17,9 +20,18 @@
             AdminHeader,
             AddWork,
             MessageInfo,
+            EditWork,
         },
         computed: {
             ...mapGetters('utils', ['getMessage']),
+            ...mapGetters('works', ['getAllWorks']),
+        },
+        methods: {
+            ...mapActions('works', ['actionGetAllWorks']),
+            ...mapMutations('utils', ['toggleLoader'],),
+        },
+        mounted() {
+            this.actionGetAllWorks();
         },
     };
 </script>

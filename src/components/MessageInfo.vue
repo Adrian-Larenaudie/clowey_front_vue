@@ -1,7 +1,7 @@
 <template>
     <div ref="infoMessage"> 
         <p class="button" @click="close">X</p>
-        <p >{{ getMessage }}</p>
+        <p>{{ getMessage }}</p>
     </div>
 </template>
 
@@ -11,6 +11,7 @@
         name: 'MessageInfo',
         computed: {
             ...mapGetters('utils', ['getMessage']),
+
         },
         mounted() {
             setTimeout(() => {

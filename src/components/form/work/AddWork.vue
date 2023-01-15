@@ -59,6 +59,7 @@
         },
         data() {
             return {
+                
             };
         },
         computed: {
@@ -93,7 +94,6 @@
             onChangeField(event) {
                 // s'il s'agit de l'input file
                 if(event.target.name === 'file') {
-                    console.log('coucoiu');
                     // chargement de l'image dans le state
                     let reader = new FileReader();
                     reader.onload = (event) => {
@@ -106,8 +106,7 @@
                 } else {
                     // sur les autres inputs sauvegarde des valeurs dans le state du formulaire
                     this.setNewWorkValue({field: event.target.name, value: event.target.value})
-                }
-                
+                }            
             },
         },
     };

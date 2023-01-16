@@ -17,5 +17,8 @@
 </script>
 
 <style scoped>
+    .admin {
 
+        
+    }
 </style>

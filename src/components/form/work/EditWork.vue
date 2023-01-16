@@ -1,48 +1,48 @@
 <template>
-    <h1>Composant formulaire de modification d'une oeuvre</h1>
-    {{ workId }}
     <div>
-<!--    <form @submit.prevent="submitNewWork">
+        <form @submit.prevent="submitEditWork">
 
             <div class="formLeftSide">
 
                 <div class="formInputs">
                     <div class="formGroup">
                         <label for="">Nom de l'oeuvre*</label>
-                        <input @change="onChangeField" :value="getNewWork.name" name="name" class="formInput" type="text" placeholder="Nom">
+                        <input @change="onChangeField" :value="getWorkById(workId).name" name="name" class="formInput" type="text" placeholder="Nom">
                     </div>
 
                     <div class="formGroup">
                         <label for="">Date de réalisation</label>
-                        <input @change="onChangeField" :value="getNewWork.date" name="date" class="formInput" type="date" >
+                        <input @change="onChangeField" :value="getWorkById(workId).date" name="date" class="formInput" type="date" >
                     </div>  
 
                     <div class="formGroup">
                         <label for="">Catégorie à associer*</label>
-                        <select @change="onChangeField" :value="getNewWork.category" class="formSelect" name="category" id="">
+                        <select @change="onChangeField" :value="getWorkById(workId).category_id" class="formSelect" name="category_id" id="">
                             <option value="categorie">Categorie</option>
                             <option v-for="category in getAllCategories" :value="category.id">{{ category.name }}</option>                       
                         </select>
                     </div>   
                 </div>
 
+
+
                 <div class="formTextarea">
                     <label class="textareaLabel" for="">Description*</label>
-                    <textarea @change="onChangeField" :value="getNewWork.description" name="description" id="" placeholder="Description"></textarea>
+                    <textarea @change="onChangeField" :value="getWorkById(workId).description" name="description" id="" placeholder="Description"></textarea>
                 </div>
             </div>
 
             <div class="imageContainer">
-                <img v-if="getNewWork.imageUrl" :src="getNewWork.imageUrl" alt=""/>
+                <img :src="getWorkById(workId).imageMosaic" :alt="getWorkById(workId).name"/>
             </div>
 
             <div class="formRightSide">
                 <LoaderComponent class="loader" v-if="getLoader('add_work_loader')"/>
-                <button v-if="!getLoader('add_work_loader')" class="formSubmit">Supprimer</button>  
+                <div @click="deleteWork" v-if="!getLoader('add_work_loader')" class="formDelete">Supprimer</div>  
                 <button v-if="!getLoader('add_work_loader')" class="formSubmit">Modifier</button>  
             </div>
 
-        </form> -->
+        </form>
     </div>
 </template>
 
@@ -57,7 +57,22 @@
         },
         props: ['workId'],
         computed: {
-            ...mapGetters('works', ['getAllWorks']),
+            ...mapGetters('works', ['getAllWorks', 'getWorkById']),
+            ...mapGetters('categories', ['getAllCategories']),
+            ...mapGetters('utils', ['getLoader']),
+        },
+        methods: {
+            ...mapMutations('works', ['editWorkValue']),
+
+            submitEditWork() {
+                console.log('édition de l\'oeuvre ' + this.workId);
+            },
+            deleteWork() {
+                console.log('suppression de l\'oeuvre ' + this.workId);
+            },
+            onChangeField(event) {
+                this.editWorkValue({field: event.target.name, value: event.target.value, workId: this.workId})         
+            },
         },
     };
 </script>
@@ -67,7 +82,8 @@
         margin: 1rem;
     }
     form {
-        border: solid 2px rgb(164, 164, 164);
+        background-color: #fff;
+        border: solid 2px var(--border-from-color);
         border-radius: .2rem;
         margin: 1.5rem;
         padding: .5rem;
@@ -75,7 +91,10 @@
         justify-content: space-between;
         flex-wrap: wrap;
         font-weight: 600;
-        margin-top: 0;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 1000px;
     }
     .formLeftSide {
 
@@ -88,32 +107,12 @@
         padding-bottom: .4rem;
     }
     .formInput, .formSelect {
+        background: rgb(255,238,242);
+        background: linear-gradient(315deg, rgba(255,238,242,0.9136029411764706) 0%, rgba(253,232,237,1) 100%);
         border-radius: .2rem;
         padding: .5rem;
         width: 190px;
-        border: 2px solid rgb(164, 164, 164);
-    }
-    .inputFile {
-        width: 0.1px;
-        height: 0.1px;
-        opacity: 0;
-        overflow: hidden;
-        position: absolute;
-        z-index: -1;
-    }
-    .fileLabel {
-        margin-top: .4rem;
-        font-size: 1rem;
-        font-weight: 500;
-        border: 2px solid rgb(164, 164, 164);
-        border-radius: .2rem;
-        color: var(--button-dark-color);
-        padding: .5rem 1rem;
-        cursor: pointer;
-        transition: .5s;
-    }
-    .fileLabel:hover {
-        border: 2px solid #000;
+        border: 2px solid var(--border-from-color);
     }
     .formSelect {
 
@@ -122,8 +121,10 @@
 
     }
     textarea {
+        background: rgb(255,238,242);
+        background: linear-gradient(315deg, rgba(255,238,242,0.9136029411764706) 0%, rgba(253,232,237,1) 100%);
         border-radius: .2rem;
-        border: 2px solid rgb(164, 164, 164);
+        border: 2px solid var(--border-from-color);
         resize : none;
         width: 97%;
         padding: .5rem;
@@ -137,6 +138,7 @@
         display: flex;
         align-items: flex-end;
         justify-content: flex-end;
+        flex-wrap: wrap;
     }
     .formGroup, .formTextarea {
         display: flex;
@@ -155,7 +157,6 @@
     img {
         overflow: hidden;
         width: 220px;
-        border: 2px solid rgb(164, 164, 164);
         border-radius: .2rem;
     }
     .formSubmit {
@@ -163,7 +164,7 @@
         margin: 1rem;
         border: 2px solid transparent;
         border-radius: .2rem;
-        background-color: var(--button-background-submit-color);
+        background-color: var(--button-background-link-color);
         color: var(--button-light-color);
         padding: .5rem 1rem;
         cursor: pointer;
@@ -171,16 +172,44 @@
     }
     .formSubmit:hover {
         background-color: var(--button-background-hover-color);
-        color: var(--button-background-submit-color);
-        border: 2px solid var(--button-background-submit-color);
+        color: var(--button-background-link-color);
+        border: 2px solid var(--button-background-link-color);
+    }
+
+    .formDelete {
+        font-size: var(--font-button-size);
+        margin: 1rem;
+        border: 2px solid transparent;
+        border-radius: .2rem;
+        background-color: var(--button-background-delete-color);
+        color: var(--button-light-color);
+        padding: .5rem 1rem;
+        cursor: pointer;
+        transition: .5s;
+        font-weight: 500;
+    }
+    
+    .formDelete:hover {
+        background-color: var(--button-background-hover-color);
+        color: var(--button-background-delete-color);
+        border: 2px solid var(--button-background-delete-color);
     }
 
     /* responsive part */
+    @media only screen and (max-width: 1150px)  { 
+        form {
+            margin-left: 3rem;
+            margin-right: 3rem;
+        }
+    }
+    @media only screen and (max-width: 1000px)  { 
+        form {
+            justify-content: center;
+        }
+    }
     @media only screen and (max-width: 960px)  {
         form {
             flex-direction: column;
-            margin: 2rem;
-            margin-top: 0;
         }
         .formInputs {
             flex-direction: column;

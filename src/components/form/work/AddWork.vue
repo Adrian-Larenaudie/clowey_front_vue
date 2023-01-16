@@ -117,7 +117,8 @@
         margin: 1rem;
     }
     form {
-        border: solid 2px rgb(164, 164, 164);
+        background-color: #fff;
+        border: solid 2px var(--border-from-color);
         border-radius: .2rem;
         margin: 1.5rem;
         padding: .5rem;
@@ -126,6 +127,7 @@
         flex-wrap: wrap;
         font-weight: 600;
         margin-top: 0;
+        max-width: 1000px;
     }
     .formLeftSide {
 
@@ -138,12 +140,14 @@
         padding-bottom: .4rem;
     }
     .formInput, .formSelect {
+        background: rgb(255,238,242);
+        background: linear-gradient(315deg, rgba(255,238,242,0.9136029411764706) 0%, rgba(253,232,237,1) 100%);
         border-radius: .2rem;
         padding: .5rem;
         width: 190px;
-        border: 2px solid rgb(164, 164, 164);
+        border: 2px solid var(--border-from-color);
     }
-    .inputFile {
+    .inputFile { 
         width: 0.1px;
         height: 0.1px;
         opacity: 0;
@@ -152,10 +156,12 @@
         z-index: -1;
     }
     .fileLabel {
+        background: rgb(255,238,242);
+        background: linear-gradient(315deg, rgba(255,238,242,0.9136029411764706) 0%, rgba(253,232,237,1) 100%);
         margin-top: .4rem;
         font-size: 1rem;
         font-weight: 500;
-        border: 2px solid rgb(164, 164, 164);
+        border: 2px solid var(--border-from-color);
         border-radius: .2rem;
         color: var(--button-dark-color);
         padding: .5rem 1rem;
@@ -172,8 +178,10 @@
 
     }
     textarea {
+        background: rgb(255,238,242);
+        background: linear-gradient(315deg, rgba(255,238,242,0.9136029411764706) 0%, rgba(253,232,237,1) 100%);
         border-radius: .2rem;
-        border: 2px solid rgb(164, 164, 164);
+        border: 2px solid var(--border-from-color);
         resize : none;
         width: 97%;
         padding: .5rem;
@@ -205,7 +213,6 @@
     img {
         overflow: hidden;
         width: 220px;
-        border: 2px solid rgb(164, 164, 164);
         border-radius: .2rem;
     }
     .formSubmit {

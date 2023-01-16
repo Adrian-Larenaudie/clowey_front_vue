@@ -2,8 +2,11 @@
     <AdminHeader class="title" title="Page de gestion des Oeuvres" />
     <MessageInfo v-if="getMessage !== ''" />
     <div class="meuble" v-if="getMessage === ''"></div>
-    <AddWork />
-    <EditWork v-for="work in getAllWorks" :workId="work.id" />
+    <div class="form_container">
+        <AddWork />
+        <h1 class="low_title">Modifier ou supprimer des oeuvres</h1>
+        <EditWork v-for="work in getAllWorks" :workId="work.id" />
+    </div>
 </template>
 
 <script>
@@ -42,7 +45,19 @@
         margin: 1rem;
         margin-bottom: 0;
     }
+    .low_title {
+        font-size: 1.5rem;
+        margin: 1rem;
+        margin-bottom: 0;
+        width: 100%;
+    }
     .meuble {
         height: calc(50px + 1rem);
+    }
+    .form_container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+
     }
 </style>

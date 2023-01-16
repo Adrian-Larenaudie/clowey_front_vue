@@ -51,4 +51,8 @@
   /* BORDER COLOR */
   --border-panel-color: #fff;
   /* BORDER COLOR */
+
+  /* FORM */
+  --border-from-color: rgba(101, 148, 235, 0.539);
+  /* FORM */
 }

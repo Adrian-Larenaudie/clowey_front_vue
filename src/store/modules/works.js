@@ -45,9 +45,9 @@ export default {
             } catch(err) {
                 console.log(err);
                 context.commit('utils/toggleLoader', 'add_work_loader', {root: true});
-                context.commit('utils/setMessage', 'Erreur inconnue échec de l\'ajout', {root: true});
-            }
-            window.scroll(0, 0);
+                context.commit('utils/setMessage', 'Erreur inconnue échec de l\ajout', {root: true});
+            };
+            window.scroll(0, 0);   
         },
         //TODO action editer une ouvre
         /* async actionEditWork(context, workId) {
@@ -68,20 +68,19 @@ export default {
             window.scroll(0, 0);
         }, */
         //TODO action supprimer une ouvre
-        /* async actionDeleteWork(context, workId) {
+        async actionDeleteWork(context, workId) {
             try {
-                await Axios.post(`/work/${workId}`, accountService.getHeaderConfig());
-                //context.commit('utils/toggleLoader', 'add_work_loader', {root: true});
-                //context.dispatch('actionGetAllWorks');
-                //context.commit('utils/setMessage', 'L\'oeuvre a été ajoutée avec succès :)', {root: true});
+                await Axios.delete(`/work/${workId}`, accountService.getHeaderConfig());
+                context.commit('utils/toggleLoader', 'delete_work_loader', {root: true});
+                context.dispatch('actionGetAllWorks');
+                context.commit('utils/setMessage', 'L\'oeuvre a été supprimée avec succès :)', {root: true});
             
             } catch(err) {
                 console.log(err);
-                //context.commit('utils/toggleLoader', 'add_work_loader', {root: true});
-                //context.commit('utils/setMessage', 'Erreur inconnue échec de l\'ajout', {root: true});
-            }
-            window.scroll(0, 0);
-        }, */
+                context.commit('utils/toggleLoader', 'delete_work_loader', {root: true});
+                context.commit('utils/setMessage', 'Erreur inconnue échec de la suppression', {root: true});
+            };
+        },
     },
     
     mutations: {

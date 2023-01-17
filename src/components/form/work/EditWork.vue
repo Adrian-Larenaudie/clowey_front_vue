@@ -37,9 +37,9 @@
             </div>
 
             <div class="formRightSide">
-                <LoaderComponent class="loader" v-if="getLoader('add_work_loader')"/>
-                <div @click="deleteWork" v-if="!getLoader('add_work_loader')" class="formDelete">Supprimer</div>  
-                <button v-if="!getLoader('add_work_loader')" class="formSubmit">Modifier</button>  
+                <LoaderComponent class="loader" v-if="getLoader('delete_work_loader')"/>
+                <div @click="deleteWork" v-if="!getLoader('delete_work_loader')" class="formDelete">Supprimer</div>  
+                <button v-if="!getLoader('delete_work_loader')" class="formSubmit">Modifier</button>  
             </div>
 
         </form>
@@ -63,12 +63,15 @@
         },
         methods: {
             ...mapMutations('works', ['editWorkValue']),
+            ...mapActions('works', ['actionDeleteWork']),
+            ...mapMutations('utils', ['toggleLoader']),
 
             submitEditWork() {
                 console.log('édition de l\'oeuvre ' + this.workId);
             },
             deleteWork() {
-                console.log('suppression de l\'oeuvre ' + this.workId);
+                this.toggleLoader('delete_work_loader');
+                this.actionDeleteWork(this.workId);
             },
             onChangeField(event) {
                 this.editWorkValue({field: event.target.name, value: event.target.value, workId: this.workId})         

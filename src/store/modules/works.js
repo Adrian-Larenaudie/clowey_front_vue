@@ -31,7 +31,8 @@ export default {
         async actionGetAllWorks(context) {
             const response = await Axios.get('/work');
             const works = response.data.works.reverse();
-            context.commit('setAllWorks', works)
+            context.commit('setAllWorks', works);
+            context.commit('utils/setLoaderToFalse', 'work_loader', {root: true});
         },
         async actionPostNewWork(context, payload) {
             try {

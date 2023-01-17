@@ -2,6 +2,7 @@ export default {
     namespaced: true,
     state:() => ({
        mosaic_loader: false,
+       work_loader: false,
        add_work_loader: false,
        edit_work_loader: false,
        delete_work_loader: false,
@@ -24,6 +25,9 @@ export default {
     mutations: {
         toggleLoader(state, loaderName) {
             state[loaderName] = !state[loaderName];
+        },
+        setLoaderToFalse(state, loaderName) {
+            state[loaderName] = false;
         },
         setMessage(state, message) {
             state.message = message;

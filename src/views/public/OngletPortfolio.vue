@@ -4,7 +4,6 @@
     <div >        
         <img v-for="work in getAllWorks" @load="loadedImg" class="mosaic_img"  :src="work.imageMosaic" :alt="work.name"/>
     </div>
-    <!-- <p>{{ getAllCategories }}</p> -->
 </template>
 
 <script>

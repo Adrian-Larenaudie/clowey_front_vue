@@ -4,8 +4,9 @@
     <div class="meuble" v-if="getMessage === ''"></div>
     <div class="form_container">
         <AddWork />
-        <h1 class="low_title">Modifier ou supprimer des oeuvres</h1>
-        <EditWork v-for="work in getAllWorks" :workId="work.id" />
+        <LoaderComponent class="loader" v-if="getLoader('work_loader')" />
+        <h1 v-if="!getLoader('work_loader')" class="low_title">Modifier ou supprimer des oeuvres</h1>
+        <EditWork v-if="!getLoader('work_loader')" v-for="work in getAllWorks" :workId="work.id" />
     </div>
 </template>
 
@@ -16,6 +17,7 @@
     import EditWork from '@/components/form/work/EditWork.vue';
 
     import { mapGetters, mapActions, mapMutations } from "vuex";
+    import LoaderComponent from "@/components/LoaderComponent.vue";
 
     export default {
         name: 'WorkAdmin',
@@ -24,9 +26,10 @@
             AddWork,
             MessageInfo,
             EditWork,
+            LoaderComponent,
         },
         computed: {
-            ...mapGetters('utils', ['getMessage']),
+            ...mapGetters('utils', ['getMessage', 'getLoader']),
             ...mapGetters('works', ['getAllWorks']),
         },
         methods: {
@@ -34,6 +37,7 @@
             ...mapMutations('utils', ['toggleLoader'],),
         },
         mounted() {
+            this.toggleLoader('work_loader');
             this.actionGetAllWorks();
         },
     };
@@ -44,6 +48,9 @@
         font-size: 2rem;
         margin: 1rem;
         margin-bottom: 0;
+    }
+    .loader {
+        width: 100%;
     }
     .low_title {
         font-size: 1.5rem;

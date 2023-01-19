@@ -80,6 +80,7 @@ export default {
                 context.commit('utils/toggleLoader', 'delete_work_loader', {root: true});
                 context.commit('utils/setMessage', 'Erreur inconnue échec de la suppression', {root: true});
             };
+            context.commit('utils/setCurrentDeleteWorkId', null, {root: true});
         },
     },
     

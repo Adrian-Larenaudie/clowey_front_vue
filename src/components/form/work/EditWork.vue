@@ -1,45 +1,40 @@
 <template>
     <div>
-        <form @submit.prevent="submitEditWork">
+        <form class="edit_form" @submit.prevent="submitEditWork">
 
-            <div class="formLeftSide">
-
-                <div class="formInputs">
-                    <div class="formGroup">
-                        <label for="">Nom de l'oeuvre*</label>
+                <div class="form_main_inputs">
+                    <div class="form_group">
+                        <label for="">Nom*</label>
                         <input @change="onChangeField" :value="getWorkById(workId).name" name="name" class="formInput" type="text" placeholder="Nom">
                     </div>
 
-                    <div class="formGroup">
-                        <label for="">Date de réalisation</label>
+                    <div class="form_group">
+                        <label for="">Date</label>
                         <input @change="onChangeField" :value="getWorkById(workId).date" name="date" class="formInput" type="date" >
                     </div>  
 
-                    <div class="formGroup">
-                        <label for="">Catégorie à associer*</label>
+                    <div class="form_group">
+                        <label for="">Catégorie*</label>
                         <select @change="onChangeField" :value="getWorkById(workId).category_id" class="formSelect" name="category_id" id="">
                             <option value="categorie">Categorie</option>
                             <option v-for="category in getAllCategories" :value="category.id">{{ category.name }}</option>                       
                         </select>
-                    </div>   
+                    </div> 
+
+                    <div class="form_group_textarea">
+                        <label class="textareaLabel" for="">Description*</label>
+                        <textarea @change="onChangeField" :value="getWorkById(workId).description" name="description" id="" placeholder="Description"></textarea>
+                    </div>
                 </div>
 
-
-
-                <div class="formTextarea">
-                    <label class="textareaLabel" for="">Description*</label>
-                    <textarea @change="onChangeField" :value="getWorkById(workId).description" name="description" id="" placeholder="Description"></textarea>
-                </div>
-            </div>
-
-            <div class="imageContainer">
+            <div class="image_container">
                 <img :src="getWorkById(workId).imageMosaic" :alt="getWorkById(workId).name"/>
             </div>
 
-            <div class="formRightSide">
+            <div class="form_button_side">
                 <LoaderComponent class="loader" v-if="getLoader('delete_work_loader')"/>
-                <div @click="deleteWork" v-if="!getLoader('delete_work_loader')" class="formDelete">Supprimer</div>  
-                <button v-if="!getLoader('delete_work_loader')" class="formSubmit">Modifier</button>  
+                <button v-if="!getLoader('delete_work_loader')" class="form_submit_button">&nbsp; Modifier &nbsp;</button> 
+                <div @click="deleteWork" v-if="!getLoader('delete_work_loader')" class="form_delete_button">Supprimer</div>   
             </div>
 
         </form>
@@ -82,6 +77,97 @@
 
 <style scoped>
     .loader {
+        margin: 1.5rem;
+    }
+    .edit_form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: .5rem;
+        border: 2px solid rgb(217, 217, 217);
+        border-radius: .2rem;
+        padding: 1rem;
+        background: #f0f0f0;
+        box-shadow:  5px -5px 14px #d3d3d3,
+                    -5px 5px 14px #ffffff;
+    }
+    .form_main_inputs {
+        width: 100%;
+    }
+    .form_group, .form_group_textarea {
+        display: flex;
+        flex-direction: column;
+    }
+    .form_group_textarea {
+
+    }
+
+    label {
+        text-align: left;
+        padding: .5rem 0;
+    }
+
+    input, select {
+        height: 1.5rem;
+        padding: .2rem 0;
+    }
+
+    input, select, textarea{
+        border:1px solid #fff;
+        -ms-box-sizing:content-box;
+        -moz-box-sizing:content-box;
+        box-sizing:content-box;
+        -webkit-box-sizing:content-box; 
+        border-radius: .2rem;
+    } 
+
+    textarea {
+        resize : none;
+        height: 5rem;
+    }
+
+    input[type="date"]::-webkit-inner-spin-button,
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        /* display: none;
+        -webkit-appearance: none; */
+    }
+    .image_container {
+        margin-top: 1rem;
+        height: 300px;
+        width: 300px;
+    }
+    .form_button_side {
+        display: flex;
+    }
+    .form_submit_button,  .form_delete_button {
+        font-size: var(--font-button-size);
+        margin: 1rem;
+        border: 2px solid transparent;
+        border-radius: .2rem;
+        background-color: var(--button-background-link-color);
+        color: var(--button-light-color);
+        padding: .5rem 1rem;
+        cursor: pointer;
+        transition: .5s;
+    }
+    .form_submit_button:hover {
+        background-color: var(--button-background-hover-color);
+        color: var(--button-background-link-color);
+        border: 2px solid var(--button-background-link-color);
+    }
+
+    .form_delete_button {
+        background-color: var(--button-background-delete-color);
+        color: var(--button-light-color);
+    }
+    
+    .form_delete_button:hover {
+        background-color: var(--button-background-hover-color);
+        color: var(--button-background-delete-color);
+        border: 2px solid var(--button-background-delete-color);
+    }
+    /* .loader {
         margin: 1.5rem;
     }
     form {
@@ -198,7 +284,7 @@
         border: 2px solid var(--button-background-delete-color);
     }
 
-    /* responsive part */
+    // responsive part 
     @media only screen and (max-width: 1150px)  { 
         form {
             margin-left: 3rem;
@@ -239,5 +325,5 @@
         .formSubmit {
             width: 220px;
         }
-    }
+    } */
 </style>

@@ -14,7 +14,7 @@ let newWorkForm = (newWork) => {
         return 'Erreur seulement le format jpg est autorisé !';
     }
 
-    if(newWork.name.length >= 20) {
+    if(newWork.name.length >= 30) {
         return 'Erreur le nom est trop long 20 caractères maximum !';
     }
     if(newWork.name.trim().length === 0) {
